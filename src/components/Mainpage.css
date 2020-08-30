@@ -1,0 +1,99 @@
+*{
+    padding: 0;
+    margin : 0;
+    box-sizing: border-box;
+
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    text-align: center;
+    align-content: center;
+    background : #323232;
+    
+}
+
+.form{
+    display: grid;
+    grid-template-columns: 4% 89% 4% ;
+    padding: 5vh;
+    grid-column-gap: 1%;
+}
+
+.completed {
+    text-decoration : line-through;
+    color : #ededed !important;
+    transition :0.5s ease-in;
+}
+
+#show { 
+    display: block;
+    background : #EDEDED;
+    color : #F15151;
+    border : none;
+}
+
+#show:hover{
+    background : #F15151;
+    color : #EDEDED;
+}
+
+#hide{
+    display: none;
+}
+
+input{
+    background : #323232;
+    border: none;
+    border-bottom : 2px solid #ededed;
+    color : #f15151;
+}
+
+input:focus{
+    outline : none;
+}
+
+#edit{
+    background : #ededed;
+    color: #ffa41b;
+    border: none;
+}
+
+#edit:hover{
+    background : #ffa41b;
+    color: #ededed;
+}
+
+#delete{
+    background : #ededed;
+    color: #ff141b;
+    border: none;
+}
+
+#delete:hover{
+    background : #ff141b;
+    color : #ededed;
+}
+
+#todos{
+    display: grid;
+    grid-template-columns: 2% 87% 4% 4%;
+    padding:2vh;
+    grid-column-gap: 1%;
+}
+
+#checkbox{
+    width: 20px;
+    height: 20px;
+    margin-top:1vh;
+}
+
+#todo{
+    color: #f15151;
+    border-bottom :1px solid #ededed;
+    text-align: start;
+    overflow : auto
+}
+

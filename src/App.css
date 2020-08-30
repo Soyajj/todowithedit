@@ -1,11 +1,5 @@
-.completed {
-    text-decoration : line-through;
-}
 
-.show { 
-    display: block;
-}
-
-.hide{
-    display: none;
+.App{
+    background : #323232;
+    min-height: 100vh;
 }
