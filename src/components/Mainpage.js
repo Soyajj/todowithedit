@@ -1,139 +1,132 @@
 import React, { Component } from 'react';
 import {v4 as uuid} from 'uuid';
-import '../App.css'
-import './Mainpage.css'
+import '../App.css';
+import './Mainpage.css';
 
 export class Mainpage extends Component {
     constructor(props){
     super(props);
     this.state = ({
-        title : '',
-        edit : false,
-        updateIndex : '',
-        todos : [
+        newTitle: '',
+        edit: false,
+        updateIndex: '',
+        todos: [
             {
-                id : uuid(),
-                title : 'Sample',
-                completed :false,
+                id: uuid(),
+                title: 'Sample',
+                completed: false
             }
         ]})
     }
 
-    deleteTodo = (index) =>{
-        const todos = [].concat(this.state.todos);
+    deleteTodo = (index) => {
+        const todos = [...this.state.todos];
         todos.splice(index,1);
-        this.setState({
-            todos : todos
-    })
-    
+        this.setState({todos});
     }
 
-    markComplete = (index) =>{
-        const todos = [].concat(this.state.todos);
-        todos[index].completed = !todos[index].completed
-        this.setState({
-            todos : todos,
-        })
+    markComplete = (index) => {
+        const todos = [...this.state.todos];
+        todos[index].completed = !todos[index].completed;
+        this.setState({todos});
     }
 
     handleChange = (e) => {
         this.setState({
-            title : e.target.value
+            newTitle: e.target.value,
         })
     }
 
-    onSubmit = (e) =>{
+    onSubmit = (e) => {
         e.preventDefault();
-        const todos = [].concat(this.state.todos);
+        const todos = [...this.state.todos];
         todos.push({
-            id : uuid(),
-            title : this.state.title,
+            id: uuid(),
+            title: this.state.newTitle,
             completed: false,
-            edit : false
+            edit: false
         })
         this.setState({
-            todos:todos,
-            title : '',
+            todos,
+            newTitle: ''
         })
-    
     }
 
-    editTodo = (index) =>{
-        const todos = [].concat(this.state.todos);
+    editTodo = (index) => {
+        const todos = [...this.state.todos];
         const todoToBeEdited = todos[index].title;
         this.setState({
-            title : todoToBeEdited,
-            edit : true,
-            updateIndex : index
+            newTitle: todoToBeEdited,
+            edit: true,
+            updateIndex: index
         })
     }
 
-    onSave = (e) =>{
+    onSave = (e) => {
         e.preventDefault();
-        const todos = [].concat(this.state.todos)
-        todos[this.state.updateIndex].title = this.state.title;
+        const todos = [...this.state.todos]
+        todos[this.state.updateIndex].title = this.state.newTitle;
         this.setState({
-            todos : todos,
-            title : '',
-            updateIndex : '',
-            edit : !this.state.edit,
+            todos,
+            newTitle: '',
+            updateIndex: '',
+            edit: !this.state.edit,
          })
     }
 
-    render() {
-        return (
-        <div className = "main">
+    render(){
+        const {newTitle, edit, todos} = this.state;
+        return(
+        <div className="main">
             <form  
-                onSubmit={this.state.edit ? this.onSave : this.onSubmit}
-                className = "form">
-                <i className = "fa fa-pencil fa-2x" style = {{color : '#ededed'}}/>
+                onSubmit={edit ? this.onSave : this.onSubmit}
+                className="form">
+                <i className="fa fa-pencil fa-2x" style={{color: '#ededed'}}/>
                 <input 
-                    type = "text"
-                    value = {this.state.title} 
-                    onChange = {this.handleChange} 
+                    type="text"
+                    value={newTitle} 
+                    onChange={this.handleChange} 
                     id="title"
-                    autoComplete = "off"
-                    required = {true}
-                    placeholder = "Write your Tasks..."
+                    autoComplete="off"
+                    required={true}
+                    placeholder="Write your Tasks..."
                     />
                 <button 
                     type="submit"
-                    id = {this.state.edit ? 'hide' : 'show'}
-                    className = "btn btn-primary">
-                    <i className = "fa fa-plus" />
-                </button>
-                <button 
-                    type="submit"
-                    id = {this.state.edit ? 'show' : 'hide'}
-                    className = "btn btn-primary">
-                    <i className = "fa fa-save" />
+                    id="show"
+                    className="btn btn-primary">
+                    <i className={edit ? 'fa fa-save' : 'fa fa-plus'} />
                 </button>
             </form>
-            {this.state.todos.map((todo, index)=>(
-                <div key = {todo.id} id="todos" >
+            {todos.map((todo, index) => {
+                const {id, title, completed} = todo;
+                return (
+                <div key={id} id="todos">
                     <input 
-                        type = "checkbox" 
-                        onChange = {()=> this.markComplete(index)} 
-                        checked ={todo.completed} 
-                        disabled = {this.state.edit ? true : false}
+                        type="checkbox" 
+                        onChange={() => this.markComplete(index)} 
+                        checked={completed} 
+                        disabled={!!edit}
                         id="checkbox"
                         />
-                    <span className={todo.completed ? 'completed' : 'none'} id="todo" >{todo.title}</span>
+                    <span className={completed ? 'completed' : 'none'} id="todo">
+                        {title}
+                    </span>
                     <button 
-                        onClick = {()=> this.editTodo(index)} 
-                        disabled = {todo.completed ? true : false}
-                        className = "btn btn-primary"
-                        id= "edit">
-                        <i className = "fa fa-edit" />
+                        onClick={() => this.editTodo(index)} 
+                        disabled={!!completed}
+                        className="btn btn-primary"
+                        id="edit">
+                        <i className="fa fa-edit" />
                     </button>
                     <button 
-                        onClick = {()=>this.deleteTodo(index)}
-                        className = "btn btn-primary"
-                        id= "delete">
-                        <i className = "fa fa-trash" />
+                        onClick={() => this.deleteTodo(index)}
+                        className="btn btn-primary"
+                        id="delete">
+                        <i className="fa fa-trash" />
                     </button>
-                </div>
-            ))}
+                </div>)
+            })}
         </div>
         )
     }

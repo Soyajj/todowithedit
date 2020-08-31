@@ -2,7 +2,7 @@
     padding: 0;
     margin : 0;
     box-sizing: border-box;
-
+    font-weight: 300;
 }
 
 .main{
@@ -12,13 +12,12 @@
     text-align: center;
     align-content: center;
     background : #323232;
-    
 }
 
 .form{
     display: grid;
-    grid-template-columns: 4% 89% 4% ;
-    padding: 5vh;
+    grid-template-columns: 4% 90% 4% ;
+    padding: 2vh;
     grid-column-gap: 1%;
 }
 
@@ -38,10 +37,6 @@
 #show:hover{
     background : #F15151;
     color : #EDEDED;
-}
-
-#hide{
-    display: none;
 }
 
 input{
@@ -80,7 +75,7 @@ input:focus{
 #todos{
     display: grid;
     grid-template-columns: 2% 87% 4% 4%;
-    padding:2vh;
+    padding: 2vh;
     grid-column-gap: 1%;
 }
 
@@ -97,3 +92,15 @@ input:focus{
     overflow : auto
 }
 
+@media only screen and (max-width : 1000px){
+    .form{
+        grid-template-columns: 7% 80% 10% ;
+        grid-column-gap: 2%;
+    }
+
+    #todos{
+        grid-template-columns: 5% 70% 10% 10%;
+        grid-column-gap: 2%;
+    }
+    
+}
